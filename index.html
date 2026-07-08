@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verma Medical Store — Your Community Wellness Partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep-blue:#0B3B5C;
+    --deep-blue-light:#154E76;
+    --med-green:#1C8F6B;
+    --med-green-light:#25A87D;
+    --bg:#F5F9FA;
+    --bg-card:#FFFFFF;
+    --ink:#0F2233;
+    --ink-soft:#4A6072;
+    --line:#DCE6EA;
+    --alert:#C0392B;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Roboto', sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Inter', sans-serif; letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .container{max-width:1120px; margin:0 auto; padding:0 24px;}
+  ::selection{background:var(--med-green); color:#fff;}
+  :focus-visible{outline:3px solid var(--med-green-light); outline-offset:2px;}
+
+  /* ---------- EKG signature line ---------- */
+  .ekg-wrap{width:100%; overflow:hidden; line-height:0;}
+  .ekg-wrap svg{width:200%; height:auto; animation:ekgScroll 9s linear infinite;}
+  @keyframes ekgScroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .ekg-wrap svg{animation:none;} }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; max-width:1120px; margin:0 auto;}
+  .brand{display:flex; align-items:center; gap:10px;}
+  .logo-mark{
+    width:42px; height:42px; border-radius:10px;
+    background:linear-gradient(155deg, var(--deep-blue), var(--med-green));
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .logo-mark svg{width:22px; height:22px;}
+  .brand-text{display:flex; flex-direction:column; line-height:1.1;}
+  .brand-text strong{font-family:'Inter'; font-weight:800; font-size:1.05rem; color:var(--deep-blue);}
+  .brand-text span{font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--med-green); font-weight:600;}
+  nav.links{display:flex; gap:28px; align-items:center;}
+  nav.links a{font-size:0.94rem; font-weight:500; color:var(--ink-soft); transition:color .2s;}
+  nav.links a:hover{color:var(--deep-blue);}
+  .nav-cta{display:flex; gap:10px; align-items:center;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px; border-radius:8px; font-weight:600; font-size:0.92rem;
+    font-family:'Inter'; border:none; cursor:pointer; transition:transform .15s, box-shadow .15s;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--med-green); color:#fff; box-shadow:0 4px 14px rgba(28,143,107,0.28);}
+  .btn-primary:hover{background:var(--med-green-light);}
+  .btn-outline{background:transparent; color:var(--deep-blue); border:1.5px solid var(--deep-blue);}
+  .btn-outline:hover{background:var(--deep-blue); color:#fff;}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .menu-toggle svg{width:26px; height:26px; color:var(--deep-blue);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    background:linear-gradient(180deg, #EAF3F5 0%, var(--bg) 100%);
+    padding:72px 0 0;
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:1120px; margin:0 auto; padding:0 24px 56px;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#fff; border:1px solid var(--line); color:var(--med-green);
+    font-weight:600; font-size:0.8rem; padding:6px 14px; border-radius:999px; margin-bottom:20px;
+  }
+  .eyebrow .dot{width:7px; height:7px; border-radius:50%; background:var(--med-green); box-shadow:0 0 0 3px rgba(28,143,107,0.18);}
+  .hero h1{font-size:2.7rem; font-weight:800; color:var(--deep-blue); line-height:1.12;}
+  .hero h1 .accent{color:var(--med-green);}
+  .hero p.sub{margin-top:18px; font-size:1.08rem; color:var(--ink-soft); max-width:520px;}
+  .hero .tagline{margin-top:10px; font-style:italic; color:var(--deep-blue-light); font-weight:500;}
+  .hero-actions{display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;}
+  .hero-ekg{margin-top:38px;}
+  .hero-ekg-label{font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); font-weight:600; margin-bottom:6px;}
+
+  .hero-stats{
+    background:#fff; border:1px solid var(--line); border-radius:18px;
+    padding:28px; box-shadow:0 20px 45px -20px rgba(11,59,92,0.25);
+  }
+  .hero-stats .stat-row{display:flex; justify-content:space-between; align-items:baseline; padding:14px 0; border-bottom:1px dashed var(--line);}
+  .hero-stats .stat-row:last-child{border-bottom:none;}
+  .stat-num{font-family:'Inter'; font-weight:800; font-size:1.9rem; color:var(--deep-blue);}
+  .stat-label{font-size:0.85rem; color:var(--ink-soft); text-align:right; max-width:180px;}
+
+  /* ---------- Section shell ---------- */
+  section{padding:76px 0;}
+  .section-head{max-width:640px; margin-bottom:48px;}
+  .kicker{color:var(--med-green); font-weight:700; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; display:block;}
+  .section-head h2{font-size:2rem; color:var(--deep-blue); font-weight:800;}
+  .section-head p{margin-top:12px; color:var(--ink-soft); font-size:1rem;}
+
+  /* ---------- About / Pillars ---------- */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .about-copy p{color:var(--ink-soft); margin-bottom:16px;}
+  .pillars{display:flex; flex-direction:column; gap:18px;}
+  .pillar{
+    background:var(--bg-card); border:1px solid var(--line); border-radius:14px; padding:20px 22px;
+    display:flex; gap:16px; align-items:flex-start;
+  }
+  .pillar-icon{
+    width:40px; height:40px; border-radius:10px; flex-shrink:0;
+    background:rgba(28,143,107,0.1); color:var(--med-green);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .pillar-icon svg{width:20px; height:20px;}
+  .pillar h4{font-size:1rem; color:var(--deep-blue); margin-bottom:4px;}
+  .pillar p{font-size:0.9rem; color:var(--ink-soft);}
+
+  /* ---------- Experience timeline ---------- */
+  .exp{background:var(--deep-blue); color:#fff; position:relative;}
+  .exp::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 85% 20%, rgba(28,143,107,0.35), transparent 55%);
+  }
+  .exp .container{position:relative; z-index:1;}
+  .exp .section-head h2, .exp .kicker{color:#fff;}
+  .exp .kicker{color:var(--med-green-light);}
+  .exp .section-head p{color:#CFE0E8;}
+  .timeline{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .tl-card{
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15);
+    border-radius:14px; padding:24px;
+  }
+  .tl-year{font-family:'Inter'; font-weight:800; color:var(--med-green-light); font-size:0.85rem; letter-spacing:0.06em; margin-bottom:10px; text-transform:uppercase;}
+  .tl-card h4{font-size:1.05rem; margin-bottom:8px;}
+  .tl-card p{font-size:0.9rem; color:#CFE0E8;}
+
+  /* ---------- Team strength ---------- */
+  .team-strip{display:flex; gap:20px; margin-top:44px; flex-wrap:wrap;}
+  .team-chip{
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15);
+    border-radius:999px; padding:10px 18px; font-size:0.88rem; display:flex; gap:8px; align-items:center;
+  }
+  .team-chip b{color:var(--med-green-light);}
+
+  /* ---------- Services ---------- */
+  .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .service-card{
+    background:var(--bg-card); border:1px solid var(--line); border-radius:16px; padding:28px;
+    transition:transform .2s, box-shadow .2s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{transform:translateY(-4px); box-shadow:0 24px 40px -24px rgba(11,59,92,0.3);}
+  .service-card .num{
+    position:absolute; top:16px; right:20px; font-family:'Inter'; font-weight:800;
+    font-size:2.4rem; color:var(--line);
+  }
+  .service-icon{
+    width:52px; height:52px; border-radius:12px;
+    background:linear-gradient(155deg, var(--deep-blue), var(--med-green));
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  .service-icon svg{width:26px; height:26px; color:#fff;}
+  .service-card h3{font-size:1.1rem; color:var(--deep-blue); margin-bottom:10px;}
+  .service-card p{font-size:0.92rem; color:var(--ink-soft);}
+
+  /* ---------- Prescription upload ---------- */
+  .upload-section{background:linear-gradient(180deg, #fff, #EFF6F7);}
+  .upload-wrap{
+    display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+    background:#fff; border:1px solid var(--line); border-radius:22px; padding:44px; box-shadow:0 30px 60px -35px rgba(11,59,92,0.35);
+  }
+  .upload-copy h2{font-size:1.7rem; color:var(--deep-blue); margin-bottom:14px;}
+  .upload-copy p{color:var(--ink-soft); margin-bottom:20px;}
+  .upload-copy ul{list-style:none; display:flex; flex-direction:column; gap:12px;}
+  .upload-copy li{display:flex; gap:10px; align-items:flex-start; font-size:0.92rem; color:var(--ink-soft);}
+  .upload-copy li svg{width:18px; height:18px; color:var(--med-green); flex-shrink:0; margin-top:2px;}
+
+  .drop-zone{
+    border:2px dashed var(--line); border-radius:16px; padding:32px 24px; text-align:center;
+    background:#FAFCFD; cursor:pointer; transition:border-color .2s, background .2s;
+  }
+  .drop-zone.drag{border-color:var(--med-green); background:rgba(28,143,107,0.06);}
+  .drop-zone svg{width:36px; height:36px; color:var(--med-green); margin:0 auto 12px;}
+  .drop-zone p{font-size:0.92rem; color:var(--ink-soft);}
+  .drop-zone .file-name{margin-top:10px; font-weight:600; color:var(--deep-blue); font-size:0.88rem; word-break:break-all;}
+  #rxFile{display:none;}
+  .form-row{margin-top:18px;}
+  .form-row label{display:block; font-size:0.82rem; font-weight:600; color:var(--ink); margin-bottom:6px;}
+  .form-row input, .form-row textarea{
+    width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:9px;
+    font-family:'Roboto'; font-size:0.92rem; background:#fff; color:var(--ink);
+  }
+  .form-row input:focus, .form-row textarea:focus{border-color:var(--med-green);}
+  .upload-submit{width:100%; justify-content:center; margin-top:20px;}
+  .form-success{
+    margin-top:16px; display:none; background:rgba(28,143,107,0.1); color:var(--med-green);
+    padding:12px 16px; border-radius:9px; font-size:0.88rem; font-weight:500;
+  }
+
+  /* ---------- Contact / Footer ---------- */
+  footer{background:#0A2D45; color:#DCE7EC; padding-top:64px;}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px; padding-bottom:40px;}
+  .footer-brand .brand-text strong{color:#fff;}
+  .footer-brand p{margin-top:14px; font-size:0.9rem; color:#9FB4C0; max-width:320px;}
+  .footer-col h4{font-size:0.95rem; color:#fff; margin-bottom:16px;}
+  .footer-col ul{list-style:none; display:flex; flex-direction:column; gap:11px;}
+  .footer-col li{font-size:0.9rem; color:#B7C9D3; display:flex; gap:10px; align-items:flex-start;}
+  .footer-col li svg{width:16px; height:16px; color:var(--med-green-light); flex-shrink:0; margin-top:2px;}
+  .footer-col a:hover{color:#fff;}
+  .map-embed{border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.12); height:100%; min-height:170px;}
+  .map-embed iframe{width:100%; height:100%; min-height:170px; border:0; filter:grayscale(0.15);}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.1); padding:22px 0; font-size:0.82rem;
+    color:#7F97A4; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  /* ---------- Floating WhatsApp ---------- */
+  .float-whatsapp{
+    position:fixed; bottom:24px; right:24px; z-index:200;
+    width:58px; height:58px; border-radius:50%;
+    background:#22B457; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 25px rgba(34,180,87,0.45);
+    transition:transform .2s;
+  }
+  .float-whatsapp:hover{transform:scale(1.08);}
+  .float-whatsapp svg{width:28px; height:28px; color:#fff;}
+
+  @media (max-width:920px){
+    .hero-inner{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;}
+    .timeline{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:1fr;}
+    .upload-wrap{grid-template-columns:1fr; padding:28px;}
+    .footer-grid{grid-template-columns:1fr; gap:32px;}
+    nav.links{display:none;}
+    .menu-toggle{display:block;}
+    .nav-cta .btn-outline{display:none;}
+  }
+  @media (max-width:920px){
+    nav.links.open{
+      display:flex; position:absolute; top:100%; left:0; right:0; background:#fff;
+      flex-direction:column; padding:20px 24px; border-bottom:1px solid var(--line); gap:16px;
+    }
+  }
+  @media (max-width:560px){
+    .hero h1{font-size:2rem;}
+    .hero-stats{padding:20px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M4 8h16M6 8v9a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/></svg>
+      </div>
+      <div class="brand-text">
+        <strong>Verma Medical</strong>
+        <span>Store &amp; Pharmacy</span>
+      </div>
+    </div>
+    <nav class="links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#services">Services</a>
+      <a href="#upload">Upload Prescription</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="tel:+919235432321" class="btn btn-outline">Call Now</a>
+      <a href="#upload" class="btn btn-primary">Upload Prescription</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Open Today · Sonia Road, Varanasi</span>
+      <h1>Your Community <span class="accent">Wellness</span> Partner Since 2001</h1>
+      <p class="sub">Verma Medical Store delivers authentic medicines, everyday wellness essentials, and expert pharmacist guidance — with the accuracy and care your family deserves.</p>
+      <p class="tagline">"Your Trust, Our Priority for Health and Wellness"</p>
+      <div class="hero-actions">
+        <a href="#upload" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v13m0-13 4 4m-4-4-4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          Upload Prescription
+        </a>
+        <a href="tel:+919235432321" class="btn btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.34 1.78.66 2.62a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.46-1.23a2 2 0 0 1 2.11-.45c.84.32 1.72.54 2.62.66A2 2 0 0 1 22 16.92z"/></svg>
+          +91 92354 32321
+        </a>
+      </div>
+      <div class="hero-ekg">
+        <div class="hero-ekg-label">25 years of steady, dependable care</div>
+        <div class="ekg-wrap">
+          <svg viewBox="0 0 600 60" preserveAspectRatio="none">
+            <path d="M0 30 H60 L75 30 L85 10 L100 50 L112 30 H160 L175 30 L185 10 L200 50 L212 30 H600 L600 30 L615 10 L630 50 L642 30 H700 L715 30 L725 10 L740 50 L752 30 H900 L900 30 L915 10 L930 50 L942 30 H1000 L1015 30 L1025 10 L1040 50 L1052 30 H1200" fill="none" stroke="#1C8F6B" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-row"><span class="stat-num">25+</span><span class="stat-label">Years serving the Varanasi community</span></div>
+      <div class="stat-row"><span class="stat-num">3</span><span class="stat-label">Person team — 1 Pharmacist, 2 Pharmacy Workers</span></div>
+      <div class="stat-row"><span class="stat-num">100%</span><span class="stat-label">Compliance record with pharmaceutical regulations</span></div>
+      <div class="stat-row"><span class="stat-num">2001</span><span class="stat-label">Established, still family-run</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">About Us</span>
+      <h2>A trusted name in neighbourhood healthcare</h2>
+      <p>Verma Medical Store is a community pharmacy dedicated to reliable medical supplies, wellness products, and essential healthcare solutions — built on a legacy of service since 2001.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>Verma Medical bridges the gap between traditional care and modern health management. By offering an extensive range of prescription medications, over-the-counter drugs, and holistic wellness products, we ensure comprehensive health support is always within reach.</p>
+        <p>Led by a Licensed Pharmacist and supported by two dedicated Pharmacy Workers, our three-person team combines 25 years of experience into a streamlined, patient-first operation — from clinical accuracy at the counter to fast billing and organised queue management.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4Z"/></svg></div>
+          <div><h4>Legacy &amp; Trust</h4><p>Serving the community with integrity and a proven track record of reliable pharmaceutical care.</p></div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0-13 4 4m-4-4-4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></div>
+          <div><h4>Comprehensive Healthcare</h4><p>A one-stop destination for authentic medicines, everyday wellness products, and expert guidance.</p></div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/></svg></div>
+          <div><h4>Customer-Centric Care</h4><p>Prioritising the health, safety, and well-being of every individual through dependable service.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section class="exp">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">25 Years of Experience</span>
+      <h2>A career built one prescription at a time</h2>
+      <p>Two and a half decades of frontline healthcare service, modernised without losing the personal touch.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-card">
+        <div class="tl-year">Community Trust</div>
+        <h4>Frontline Health Resource</h4>
+        <p>Dedicated over two and a half decades to becoming a trusted frontline resource, ensuring seamless access to authentic, life-saving medicines.</p>
+      </div>
+      <div class="tl-card">
+        <div class="tl-year">Operational Excellence</div>
+        <h4>Modernised Workflow</h4>
+        <p>Successfully evolved pharmacy systems over the years, moving smoothly from traditional logging to digital inventory and prescription tracking.</p>
+      </div>
+      <div class="tl-card">
+        <div class="tl-year">Unwavering Compliance</div>
+        <h4>Regulatory Discipline</h4>
+        <p>Maintained a flawless record of adherence to local healthcare laws, pharmaceutical regulations, and safety standards throughout a multi-decade career.</p>
+      </div>
+    </div>
+    <div class="team-strip">
+      <div class="team-chip"><b>1</b> Licensed Pharmacist — clinical accuracy &amp; counselling</div>
+      <div class="team-chip"><b>2</b> Pharmacy Workers — inventory &amp; patient-first service</div>
+      <div class="team-chip"><b>25</b> combined years of experience</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Core Services</span>
+      <h2>Everything your health needs, under one roof</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="num">01</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4M7.8 3h8.4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7.8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/></svg></div>
+        <h3>Prescription Dispensing</h3>
+        <p>Fast, accurate verification with drug-interaction screening handled directly by our Licensed Pharmacist.</p>
+      </div>
+      <div class="service-card">
+        <span class="num">02</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2-3 2-5a7 7 0 0 0-14 0c0 2 .5 3.5 2 5l3 6h4l3-6Z"/></svg></div>
+        <h3>Wellness &amp; OTC Products</h3>
+        <p>A wide range of daily healthcare essentials and over-the-counter wellness products for the whole family.</p>
+      </div>
+      <div class="service-card">
+        <span class="num">03</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+        <h3>Expert Consultations</h3>
+        <p>Professional, compassionate drug guidance directly from our pharmacist — every visit, every time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRESCRIPTION UPLOAD ============ -->
+<section class="upload-section" id="upload">
+  <div class="container">
+    <div class="upload-wrap">
+      <div class="upload-copy">
+        <h2>Upload your prescription</h2>
+        <p>Skip the counter wait. Snap a photo of your prescription and send it ahead for faster pickup or home delivery preparation.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>Reviewed personally by our Licensed Pharmacist</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>Ready for pickup or delivery, usually same-day</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>Your information stays confidential</li>
+        </ul>
+      </div>
+      <form id="rxForm">
+        <label class="drop-zone" id="dropZone" for="rxFile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0 4 4m-4-4L8 8"/><path d="M20 16.5v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2"/></svg>
+          <p><strong>Click to upload</strong> or drag your prescription photo here</p>
+          <div class="file-name" id="fileName"></div>
+        </label>
+        <input type="file" id="rxFile" accept="image/*,.pdf">
+        <div class="form-row">
+          <label for="rxName">Full name</label>
+          <input type="text" id="rxName" placeholder="Your name" required>
+        </div>
+        <div class="form-row">
+          <label for="rxPhone">Phone number</label>
+          <input type="tel" id="rxPhone" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+        <div class="form-row">
+          <label for="rxNote">Note (optional)</label>
+          <textarea id="rxNote" rows="2" placeholder="Pickup or delivery, preferred time, etc."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary upload-submit">Send Prescription</button>
+        <div class="form-success" id="formSuccess">Received — our pharmacist will confirm by call or WhatsApp shortly.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER / CONTACT ============ -->
+<footer id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">
+          <div class="logo-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M4 8h16M6 8v9a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/></svg>
+          </div>
+          <div class="brand-text"><strong>Verma Medical</strong><span>Store &amp; Pharmacy</span></div>
+        </div>
+        <p>Your Trust, Our Priority for Health and Wellness — proudly serving Sonia Road, Varanasi since 2001.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.34 1.78.66 2.62a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.46-1.23a2 2 0 0 1 2.11-.45c.84.32 1.72.54 2.62.66A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+919235432321">+91 92354 32321</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg><a href="mailto:vermamedical44@gmail.com">vermamedical44@gmail.com</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/></svg><a href="https://wa.me/919235432321" target="_blank" rel="noopener">WhatsApp us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Store Hours &amp; Location</h4>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Mon – Sun, 8:00 AM – 10:00 PM</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.6 7-12a7 7 0 1 0-14 0c0 5.4 7 12 7 12Z"/><circle cx="12" cy="10" r="3"/></svg>Sonia Road, Varanasi, Uttar Pradesh</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Verma Medical Store. All rights reserved.</span>
+      <span>Design brief: modern, trustworthy, patient-first.</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/919235432321" target="_blank" rel="noopener" class="float-whatsapp" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.86 11.86 0 0 0 12.05 0C5.5 0 .2 5.3.2 11.85c0 2.09.55 4.13 1.6 5.93L.11 24l6.4-1.68a11.86 11.86 0 0 0 5.53 1.41h.01c6.55 0 11.86-5.3 11.86-11.85 0-3.17-1.24-6.14-3.4-8.4ZM12.05 21.6h-.01a9.7 9.7 0 0 1-4.94-1.35l-.35-.21-3.68.97.98-3.59-.23-.37a9.68 9.68 0 0 1-1.5-5.2c0-5.37 4.37-9.74 9.75-9.74 2.6 0 5.05 1.02 6.89 2.86a9.66 9.66 0 0 1 2.85 6.89c0 5.38-4.38 9.74-9.76 9.74Zm5.35-7.3c-.29-.15-1.73-.85-2-.95-.27-.1-.47-.15-.66.15-.2.29-.76.95-.93 1.15-.17.2-.34.22-.63.07-.29-.15-1.22-.45-2.32-1.43a8.7 8.7 0 0 1-1.61-2c-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.66-1.59-.9-2.18-.24-.57-.48-.5-.66-.5h-.56c-.2 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.45s1.05 2.84 1.2 3.04c.15.2 2.06 3.15 5 4.42.7.3 1.24.48 1.67.62.7.22 1.34.19 1.84.11.56-.08 1.73-.7 1.98-1.39.24-.68.24-1.27.17-1.39-.07-.13-.27-.2-.56-.35Z"/></svg>
+</a>
+
+<script>
+  // mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // prescription upload UX
+  const dropZone = document.getElementById('dropZone');
+  const rxFile = document.getElementById('rxFile');
+  const fileName = document.getElementById('fileName');
+  rxFile.addEventListener('change', () => {
+    if (rxFile.files.length) fileName.textContent = rxFile.files[0].name;
+  });
+  ['dragenter','dragover'].forEach(evt => dropZone.addEventListener(evt, e => { e.preventDefault(); dropZone.classList.add('drag'); }));
+  ['dragleave','drop'].forEach(evt => dropZone.addEventListener(evt, e => { e.preventDefault(); dropZone.classList.remove('drag'); }));
+  dropZone.addEventListener('drop', e => {
+    if (e.dataTransfer.files.length) {
+      rxFile.files = e.dataTransfer.files;
+      fileName.textContent = e.dataTransfer.files[0].name;
+    }
+  });
+
+  document.getElementById('rxForm').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('formSuccess').style.display = 'block';
+    e.target.reset();
+    fileName.textContent = '';
+  });
+</script>
+</body>
+</html>
